@@ -1,8 +1,8 @@
 
 import React from 'react'
 
-
-
+var Typo = require("typo-js");
+var dictionary = new Typo("en_US", false, false, { dictionaryPath: "./assets/dict" })
 let arr = []
 class Main extends React.Component{
   constructor(){
@@ -32,7 +32,7 @@ class Main extends React.Component{
 
 
   componentDidMount(){
-    console.log(process.env.DB_HOST)
+
     this.create()
     console.log(arr)
 
@@ -62,7 +62,14 @@ class Main extends React.Component{
     const els = document.querySelectorAll(".letter")
     for (let i = 0; i < els.length; i++) {
     els[i].classList.remove('selected')
+
   }
+  
+  if(dictionary.check(this.state.selected.join('').toLowerCase())){
+    this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length]})
+    console.log('score')
+  }
+
   }
 
   mouseOver(e){
