@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Passio";
+  src: url("assets/Passio-Graphis.otf") format("opentype");
+}
+
+
+.board{
+  width: 70vh;
+  height:70vh;
+  margin-left: 20%;
+  border: 5px solid black;
+  margin-top: 10vh;
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
+.letter{
+  font-family: 'Passio';
+  width:10%;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+}
+
+.selected{
+  border: 1px solid red;
+
+}
