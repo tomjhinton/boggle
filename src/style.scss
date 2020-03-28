@@ -12,12 +12,15 @@
   margin-top: 10vh;
   display: inline-flex;
   flex-wrap: wrap;
-  padding: 40px;
+  padding: 2% 2% 2% 0% ;
 }
 
 .letter{
   font-family: 'Passio';
-  width:10%;
+  width: 4%;
+  height: 4%;
+  margin-left:6%;
+  bottom:8%;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -25,9 +28,17 @@
   align-items: center;
   user-select: none;
 
+
 }
 
 .selected{
-  border: 1px solid red;
+  color: red;
+  // border: 5px solid black;
 
+}
+
+.score{
+  font-family: 'Passio';
+  margin: auto;
+  font-weight: bold;
 }

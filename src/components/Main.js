@@ -12,7 +12,9 @@ class Main extends React.Component{
       error: '',
       size: 10,
       click: false,
-      selected: []
+      selected: [],
+      score: 0,
+      selectedKey: []
 
     }
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -46,22 +48,31 @@ class Main extends React.Component{
   mouseDown(e){
 
     this.setState({click: true})
-    if(e.target.innerText){
-      this.setState({selected: [e.target.innerText]})
+    if(e.target.innerText.length===1){
+      this.setState({selected: [e.target.innerText], selectedKey: [e.target.id]})
+      e.target.classList.add('selected')
+      console.log(this.state)
     }
 
 
   }
 
   mouseUp(){
-    this.setState({click: false})
-
+    this.setState({click: false, selectedKey: []})
+    const els = document.querySelectorAll(".letter")
+    for (let i = 0; i < els.length; i++) {
+    els[i].classList.remove('selected')
+  }
   }
 
   mouseOver(e){
     if(this.state.click){
-      console.log(e.target.innerText)
-      this.setState({selected: [...this.state.selected,e.target.innerText]})
+      if(!e.target.classList.contains('selected')){
+      this.setState({selected: [...this.state.selected,e.target.innerText], selectedKey: [e.target.id]})
+      e.target.classList.add('selected')
+
+      console.log(this.state.selectedKey)
+    }
     }
 
   }
@@ -89,13 +100,15 @@ class Main extends React.Component{
     return (
 
       <div onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} className="body">
-
+        <div className='score'>Score: {this.state.score}</div>
         <div className='board'>
-          {arr.map(x=>{
+
+          {arr.map((x, row)=>{
             return(
-              x.map(y=>{
+              x.map((y, index)=>{
                 return(
-                  <div key={new Date().getTime()*Math.random()} className='letter' onMouseEnter={this.mouseOver}>{y}</div>
+                  <div key={row+index}
+                    id={row+':'+index} className={'letter' + (this.state.selectedKey.includes(this.id) ? 'selected' : '')} onMouseEnter={this.mouseOver}>{y}</div>
                 )
               }))
           })}
