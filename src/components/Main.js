@@ -1,8 +1,8 @@
 
 import React from 'react'
 
-var Typo = require("typo-js");
-var dictionary = new Typo("en_US", false, false, { dictionaryPath: "./assets/dict" })
+var Typo = require('typo-js')
+var dictionary = new Typo('en_US', false, false, { dictionaryPath: './assets/dict' })
 let arr = []
 class Main extends React.Component{
   constructor(){
@@ -15,7 +15,9 @@ class Main extends React.Component{
       selected: [],
       score: 0,
       selectedKey: [],
-      played: []
+      played: [],
+      time: 0,
+      playing: false
 
     }
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -23,6 +25,7 @@ class Main extends React.Component{
     this.mouseUp = this.mouseUp.bind(this)
     this.mouseOver = this.mouseOver.bind(this)
     this.select = this.select.bind(this)
+    this.reset = this.reset.bind(this)
 
 
 
@@ -35,7 +38,7 @@ class Main extends React.Component{
   componentDidMount(){
 
     this.create()
-    console.log(arr)
+
 
 
   }
@@ -52,7 +55,7 @@ class Main extends React.Component{
     if(e.target.innerText.length===1){
       this.setState({selected: [e.target.innerText], selectedKey: [e.target.id]})
       e.target.classList.add('selected')
-      console.log(this.state)
+
     }
 
 
@@ -60,27 +63,27 @@ class Main extends React.Component{
 
   mouseUp(){
     this.setState({click: false, selectedKey: []})
-    const els = document.querySelectorAll(".letter")
+    const els = document.querySelectorAll('.letter')
     for (let i = 0; i < els.length; i++) {
-    els[i].classList.remove('selected')
+      els[i].classList.remove('selected')
 
-  }
+    }
 
-  if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2 && !this.state.played.includes(this.state.selected.join('').toLowerCase())){
-    this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length], played: [...this.state.played, this.state.selected.join('').toLowerCase()]})
-    console.log('score')
-  }
+    if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2 && !this.state.played.includes(this.state.selected.join('').toLowerCase()) && this.state.playing){
+      this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length], played: [...this.state.played, this.state.selected.join('').toLowerCase()]})
+      console.log('score')
+    }
 
   }
 
   mouseOver(e){
     if(this.state.click){
       if(!e.target.classList.contains('selected')){
-      this.setState({selected: [...this.state.selected,e.target.innerText], selectedKey: [e.target.id]})
-      e.target.classList.add('selected')
+        this.setState({selected: [...this.state.selected,e.target.innerText], selectedKey: [e.target.id]})
+        e.target.classList.add('selected')
 
-      console.log(this.state.selectedKey)
-    }
+        console.log(this.state.selectedKey)
+      }
     }
 
   }
@@ -100,6 +103,28 @@ class Main extends React.Component{
     e.persist()
     console.log(e.target.innerText)
   }
+  reset(){
+    this.create()
+    this.setState({score: 0, time: 30, playing: true })
+
+    setTimeout(() => {
+      this.timer(), 10000
+    })
+
+  }
+  timer() {
+    this.setState({time: this.state.time-1})
+    setTimeout(() => {
+      if(this.state.time>0){
+        this.timer()
+      }
+      if(this.state.time===0){
+        this.setState({playing: false})
+      }
+    }, 1000)
+  }
+
+
 
   render() {
 
@@ -109,6 +134,8 @@ class Main extends React.Component{
 
       <div onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} className="body">
         <div className='score'>Score: {this.state.score}</div>
+        {!this.state.playing && <div className='reset' onClick={this.reset}> RESET</div>}
+        {this.state.playing && <div className='timer'> {this.state.time}</div>}
         <div className='board'>
 
           {arr.map((x, row)=>{
