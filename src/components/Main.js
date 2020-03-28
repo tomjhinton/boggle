@@ -66,8 +66,8 @@ class Main extends React.Component{
 
   }
 
-  if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2){
-    this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length]})
+  if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2 && !this.state.played.includes(this.state.selected.join('').toLowerCase())){
+    this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length], played: [...this.state.played, this.state.selected.join('').toLowerCase()]})
     console.log('score')
   }
 
