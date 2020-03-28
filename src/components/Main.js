@@ -14,7 +14,8 @@ class Main extends React.Component{
       click: false,
       selected: [],
       score: 0,
-      selectedKey: []
+      selectedKey: [],
+      played: []
 
     }
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -64,8 +65,8 @@ class Main extends React.Component{
     els[i].classList.remove('selected')
 
   }
-  
-  if(dictionary.check(this.state.selected.join('').toLowerCase())){
+
+  if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2){
     this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length]})
     console.log('score')
   }
