@@ -2,7 +2,10 @@
   font-family: "Passio";
   src: url("assets/Passio-Graphis.otf") format("opentype");
 }
-
+.game{
+  display: inline-flex;
+  width: 100%;
+}
 
 .board{
   width: 70vh;
@@ -60,4 +63,10 @@
   margin-left: 40vw;
   font-size: 2em;
   text-decoration: underline;
+}
+li{
+  list-style: none;
+  font-family: 'Passio';
+  font-weight: bold;
+  font-size: 1.5em;
 }
