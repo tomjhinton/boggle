@@ -85,8 +85,7 @@ class Main extends React.Component{
         }, 500)
         this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length], played: [...this.state.played, this.state.selected.join('').toLowerCase()]})
         // console.log('score')
-      }
-      else{
+      }else{
         for (let i = 0; i < letter.length; i++) {
           if(letter[i].classList.contains('selected')){
             letter[i].classList.remove('selected')
@@ -161,6 +160,14 @@ class Main extends React.Component{
       }
       if(this.state.time===0){
         this.setState({playing: false})
+        const letter = document.querySelectorAll('.letter')
+        for (let i = 0; i < letter.length; i++) {
+
+          letter[i].classList.remove('wrong')
+          letter[i].classList.remove('right')
+
+
+        }
       }
     }, 1000)
   }
