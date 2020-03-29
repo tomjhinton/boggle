@@ -63,18 +63,48 @@ class Main extends React.Component{
 
   mouseUp(){
     if(this.state.playing){
-    this.setState({click: false, selectedKey: []})
-    const els = document.querySelectorAll('.letter')
-    for (let i = 0; i < els.length; i++) {
-      els[i].classList.remove('selected')
+      this.setState({click: false, selectedKey: []})
+      const letter = document.querySelectorAll('.letter')
 
-    }
 
-    if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2 && !this.state.played.includes(this.state.selected.join('').toLowerCase()) && this.state.playing){
-      this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length], played: [...this.state.played, this.state.selected.join('').toLowerCase()]})
-      // console.log('score')
+      if(dictionary.check(this.state.selected.join('').toLowerCase()) && this.state.selected.join('').toLowerCase().length >=2 && !this.state.played.includes(this.state.selected.join('').toLowerCase()) && this.state.playing){
+        for (let i = 0; i < letter.length; i++) {
+          if(letter[i].classList.contains('selected')){
+            letter[i].classList.remove('selected')
+            letter[i].classList.add('right')
+          }
+
+        }
+        setTimeout(() => {
+          for (let i = 0; i < letter.length; i++) {
+            if(letter[i].classList.contains('right')){
+              letter[i].classList.remove('right')
+
+            }
+          }
+        }, 500)
+        this.setState({score: [parseInt(this.state.score)+this.state.selected.join('').length], played: [...this.state.played, this.state.selected.join('').toLowerCase()]})
+        // console.log('score')
+      }
+      else{
+        for (let i = 0; i < letter.length; i++) {
+          if(letter[i].classList.contains('selected')){
+            letter[i].classList.remove('selected')
+            letter[i].classList.add('wrong')
+          }
+
+        }
+        setTimeout(() => {
+          for (let i = 0; i < letter.length; i++) {
+            if(letter[i].classList.contains('wrong')){
+              letter[i].classList.remove('wrong')
+
+            }
+          }
+        }, 500)
+
+      }
     }
-  }
 
   }
 
@@ -116,7 +146,7 @@ class Main extends React.Component{
   }
   reset(){
     this.create()
-    this.setState({score: 0, time: 60, playing: true, played: [] })
+    this.setState({score: 0, time: 60, playing: true, played: [], selectedKey: [], selected: [] })
 
     setTimeout(() => {
       this.timer(), 10000

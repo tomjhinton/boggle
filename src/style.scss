@@ -2,6 +2,11 @@
   font-family: "Passio";
   src: url("assets/Passio-Graphis.otf") format("opentype");
 }
+*{
+  user-select: none;
+  font-family: 'Passio';
+
+}
 .game{
   display: inline-flex;
   width: 100%;
@@ -16,10 +21,10 @@
   display: inline-flex;
   flex-wrap: wrap;
   padding: 2% 2% 2% 0% ;
+  cursor:  auto;
 }
 
 .letter{
-  font-family: 'Passio';
   width: 4%;
   height: 4%;
   margin-left:6%;
@@ -35,13 +40,28 @@
 }
 
 .selected{
+  color: blue;
+  text-decoration: underline;
+  text-shadow: 1px 1px cyan;
+  // border: 5px solid black;
+
+}
+
+.wrong{
   color: red;
+  text-decoration: underline;
+  // border: 5px solid black;
+
+}
+
+.right{
+  color: green;
+  text-decoration: underline;
   // border: 5px solid black;
 
 }
 
 .score{
-  font-family: 'Passio';
   margin-top: 5vh;
   font-weight: bold;
   margin-left: 40vw;
@@ -49,7 +69,6 @@
 }
 
 .timer{
-  font-family: 'Passio';
   margin-top: 2vh;
   font-weight: bold;
   margin-left: 43vw;
@@ -57,16 +76,15 @@
 }
 
 .reset{
-  font-family: 'Passio';
   margin-top: 2vh;
   font-weight: bold;
   margin-left: 40vw;
   font-size: 2em;
   text-decoration: underline;
+  cursor: pointer;
 }
 li{
   list-style: none;
-  font-family: 'Passio';
   font-weight: bold;
   font-size: 1.5em;
 }
